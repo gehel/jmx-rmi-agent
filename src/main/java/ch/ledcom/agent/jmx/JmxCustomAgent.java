@@ -209,6 +209,7 @@ import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.rmi.registry.LocateRegistry;
 import java.util.HashMap;
+
 import javax.management.MBeanServer;
 import javax.management.remote.JMXConnectorServer;
 import javax.management.remote.JMXConnectorServerFactory;
@@ -216,8 +217,8 @@ import javax.management.remote.JMXServiceURL;
 
 /**
  * This CustomAgent will start an RMI Connector Server using only port
- * "ch.ledcom.agent.jmx.port". When used with the javaagent option, it
- * allows a remote connection using JConsole or VisualVM through an SSH tunnel.
+ * "ch.ledcom.agent.jmx.port". When used with the javaagent option, it allows a
+ * remote connection using JConsole or VisualVM through an SSH tunnel.
  * 
  * The purpose of this agent is to open a JMX server that will use only one
  * fixed port for all communication instead of two dynamically set ports.
@@ -239,56 +240,31 @@ public class JmxCustomAgent {
 	}
 
 	public static void premain(String agentArgs) throws IOException {
+		// get all parameters from environment
+		final int port = parseInt(System.getProperty(PORT_KEY), 3000);
+		final boolean forceLocalhost = Boolean.getBoolean(FORCE_LOCALHOST_KEY);
+		final String accessFile = System.getProperty(ACCESS_FILE);
+		final String passwordFile = System.getProperty(PASSWORD_FILE);
 
-		String portStr = System.getProperty(PORT_KEY);
-		if ((portStr == null) || portStr.isEmpty()) {
-			System.err.println();
-			System.err.println();
-			System.err
-					.println("******************************************************");
-			System.err.println("*");
-			System.err.println("* RMI / JMX Custom Agent");
-			System.out.println("* ======================");
-			System.err.println("*");
-			System.err.println("* !!! WARNING !!!");
-			System.err.println("*");
-			System.err
-					.println("* RMI/JMX port that must be defined with system property: -D"
-							+ PORT_KEY
-							+ " is missing  ==>  no RMI/JMX server started");
-			System.err.println("*");
-			System.err
-					.println("* Please configure the port correctly to remove this warning.");
-			System.err.println("*");
-			System.err
-					.println("******************************************************");
-			System.err.println();
-			System.err.println();
-			return;
-		}
-
-		System.out
-				.println("******************************************************");
-		System.out.println("*");
+		System.out.println("**************************************");
 		System.out.println("* RMI / JMX Custom Agent");
 		System.out.println("* ======================");
-		System.out.println("*");
+		System.out.println("* " + PORT_KEY + " = [" + port + "]");
+		System.out.println("* " + FORCE_LOCALHOST_KEY + " = [" + forceLocalhost
+				+ "]");
+		System.out.println("* " + ACCESS_FILE + " = [" + accessFile + "]");
+		System.out.println("* " + PASSWORD_FILE + " = [" + passwordFile + "]");
 
 		// Ensure cryptographically strong random number generator used
 		// to choose the object number - see java.rmi.server.ObjID
 		//
 		System.setProperty("java.rmi.server.randomIDs", "true");
 
-		// Start an RMI registry on port specified by example.rmi.agent.port
-		// (default 3000).
-		//
-		final int port = Integer.parseInt(portStr);
+		// Start an RMI registry on configured port
 		System.out.println("* Create RMI registry on port " + port);
 		LocateRegistry.createRegistry(port);
 
 		// Retrieve the PlatformMBeanServer.
-		//
-		System.out.println("* Get the platform's MBean server");
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
 		// Environment map.
@@ -300,9 +276,7 @@ public class JmxCustomAgent {
 		// perform user authentication. The password file is a properties
 		// based text file specifying username/password pairs.
 
-		System.out.println("jmx.remote.x.password.file="
-				+ System.getProperty(PASSWORD_FILE));
-		env.put("jmx.remote.x.password.file", System.getProperty(PASSWORD_FILE));
+		env.put("jmx.remote.x.password.file", passwordFile);
 
 		// Provide the access level file used by the connector server to
 		// perform user authorization. The access level file is a properties
@@ -312,7 +286,7 @@ public class JmxCustomAgent {
 
 		System.out.println("jmx.remote.x.access.file="
 				+ System.getProperty(ACCESS_FILE));
-		env.put("jmx.remote.x.access.file", System.getProperty(ACCESS_FILE));
+		env.put("jmx.remote.x.access.file", accessFile);
 		env.put("jmx.remote.x.authenticate", Boolean.TRUE);
 
 		// Create an RMI connector server.
@@ -329,7 +303,6 @@ public class JmxCustomAgent {
 		// The port for the RMI registry is specified in the second part
 		// of the URL, in "rmi://"+hostname+":"+port
 		//
-		boolean forceLocalhost = Boolean.getBoolean(FORCE_LOCALHOST_KEY);
 		String hostname;
 		if (forceLocalhost) {
 			System.out
@@ -363,5 +336,12 @@ public class JmxCustomAgent {
 		System.out
 				.println("******************************************************");
 		System.out.println();
+	}
+
+	private static final int parseInt(String s, int defaultValue) {
+		if (s == null || s.trim().equals("")) {
+			return defaultValue;
+		}
+		return Integer.parseInt(s);
 	}
 }
