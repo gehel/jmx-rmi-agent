@@ -23,7 +23,7 @@ tracker][issues].
 Configuration
 -------------
 
-To load the agent, use the standard syntax : add the following to your command
+To load the agent, use the standard syntax, add the following to your command
 line:
 
     -javaagent:</path/to/jmx-rmi-agent.jar>
