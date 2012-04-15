@@ -4,40 +4,7 @@
 	<groupId>ch.ledcom.agent.jmx</groupId>
 	<artifactId>jmx-rmi-agent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>JMX / RMI Agent</name>
-	<description>Simple agent that can be used to configure JMX access to the
-	JVM.</description>
-
-	<inceptionYear>2012</inceptionYear>
-	<licenses>
-		<license>
-			<name>Apache 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-			<comments>Apache 2.0 license</comments>
-		</license>
-	</licenses>
-	<organization>
-		<name>LedCom</name>
-		<url>http://ledcom.ch/</url>
-	</organization>
-	<developers>
-		<developer>
-			<id>gehel</id>
-			<name>Guillaume Lederrey</name>
-			<email>guillaume.lederrey@gmail.com</email>
-			<url>http://rwanda.wordpress.com/</url>
-			<organization>LedCom</organization>
-			<organizationUrl>http://ledcom.ch/</organizationUrl>
-			<roles>
-				<role>developer</role>
-			</roles>
-			<timezone>+1</timezone>
-			<properties>
-				<gtalk>guillaume.lederrey@gmail.com</gtalk>
-			</properties>
-		</developer>
-	</developers>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>6</java.version>
@@ -112,5 +79,54 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<name>JMX / RMI Agent</name>
+	<description>Simple agent that can be used to configure JMX access to the
+	JVM.</description>
+	<url>https://github.com/gehel/jmx-rmi-agent</url>
+	<inceptionYear>2012</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>Apache 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>Apache 2.0 license</comments>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>LedCom</name>
+		<url>http://ledcom.ch/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>gehel</id>
+			<name>Guillaume Lederrey</name>
+			<email>guillaume.lederrey@gmail.com</email>
+			<url>http://rwanda.wordpress.com/</url>
+			<organization>LedCom</organization>
+			<organizationUrl>http://ledcom.ch/</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<properties>
+				<gtalk>guillaume.lederrey@gmail.com</gtalk>
+			</properties>
+		</developer>
+	</developers>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/gehel/jmx-rmi-agent/issues</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:git://github.com/gehel/jmx-rmi-agent.git</connection>
+		<developerConnection>scm:git:git@github.com:gehel/jmx-rmi-agent.git</developerConnection>
+		<url>https://github.com/gehel/jmx-rmi-agent</url>
+	</scm>
 
 </project>

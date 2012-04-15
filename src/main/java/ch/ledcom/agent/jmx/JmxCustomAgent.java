@@ -224,8 +224,8 @@ import javax.management.remote.JMXServiceURL;
  * fixed port for all communication instead of two dynamically set ports.
  * 
  * Code adapted from:
- * http://blogs.sun.com/jmxetc/entry/connecting_through_firewall_using_jmx
- * 
+ * https://blogs.oracle.com/jmxetc/entry/connecting_through_firewall_using_jmx
+ *
  * @author gehel
  */
 public class JmxCustomAgent {
@@ -233,49 +233,48 @@ public class JmxCustomAgent {
 	private static final String BASE = "ch.ledcom.agent.jmx.";
 	private static final String PORT_KEY = BASE + "port";
 	private static final String FORCE_LOCALHOST_KEY = BASE + "forceLocalhost";
+	private static final String AUTHENTICATE = BASE + "authenticate";
 	private static final String PASSWORD_FILE = BASE + "password.file";
 	private static final String ACCESS_FILE = BASE + "access.file";
+
+	private static final int DEFAULT_PORT = 3000;
 
 	private JmxCustomAgent() {
 	}
 
 	public static void premain(String agentArgs) throws IOException {
 		// get all parameters from environment
-		final int port = parseInt(System.getProperty(PORT_KEY), 3000);
+		final int port = parseInt(System.getProperty(PORT_KEY), DEFAULT_PORT);
 		final boolean forceLocalhost = Boolean.getBoolean(FORCE_LOCALHOST_KEY);
 		final String accessFile = System.getProperty(ACCESS_FILE);
 		final String passwordFile = System.getProperty(PASSWORD_FILE);
+		final boolean authenticate = Boolean.getBoolean(AUTHENTICATE);
 
-		System.out.println("**************************************");
-		System.out.println("* RMI / JMX Custom Agent");
-		System.out.println("* ======================");
-		System.out.println("* " + PORT_KEY + " = [" + port + "]");
-		System.out.println("* " + FORCE_LOCALHOST_KEY + " = [" + forceLocalhost
-				+ "]");
-		System.out.println("* " + ACCESS_FILE + " = [" + accessFile + "]");
-		System.out.println("* " + PASSWORD_FILE + " = [" + passwordFile + "]");
+		System.out.println("RMI / JMX Custom Agent");
+		System.out.println("======================");
+		System.out.println(PORT_KEY + " = [" + port + "]");
+		System.out.println(FORCE_LOCALHOST_KEY + " = [" + forceLocalhost + "]");
+		System.out.println(AUTHENTICATE + " = [" + authenticate + "]");
+		System.out.println(ACCESS_FILE + " = [" + accessFile + "]");
+		System.out.println(PASSWORD_FILE + " = [" + passwordFile + "]");
 
 		// Ensure cryptographically strong random number generator used
 		// to choose the object number - see java.rmi.server.ObjID
-		//
 		System.setProperty("java.rmi.server.randomIDs", "true");
 
-		// Start an RMI registry on configured port
-		System.out.println("* Create RMI registry on port " + port);
+		System.out.println("Create RMI registry on port " + port);
 		LocateRegistry.createRegistry(port);
 
 		// Retrieve the PlatformMBeanServer.
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
 		// Environment map.
-		//
-		System.out.println("* Initialize the environment map");
+		System.out.println("Initialize the environment map");
 		HashMap<String, Object> env = new HashMap<String, Object>();
 
 		// Provide the password file used by the connector server to
 		// perform user authentication. The password file is a properties
 		// based text file specifying username/password pairs.
-
 		env.put("jmx.remote.x.password.file", passwordFile);
 
 		// Provide the access level file used by the connector server to
@@ -283,11 +282,8 @@ public class JmxCustomAgent {
 		// based text file specifying username/access level pairs where
 		// access level is either "readonly" or "readwrite" access to the
 		// MBeanServer operations.
-
-		System.out.println("jmx.remote.x.access.file="
-				+ System.getProperty(ACCESS_FILE));
 		env.put("jmx.remote.x.access.file", accessFile);
-		env.put("jmx.remote.x.authenticate", Boolean.TRUE);
+		env.put("jmx.remote.x.authenticate", authenticate);
 
 		// Create an RMI connector server.
 		//
@@ -302,40 +298,31 @@ public class JmxCustomAgent {
 		// Here we use the same port as that we choose for the RMI registry.
 		// The port for the RMI registry is specified in the second part
 		// of the URL, in "rmi://"+hostname+":"+port
-		//
 		String hostname;
 		if (forceLocalhost) {
 			System.out
-					.println("* Using localhost as hostname as defined by system property: "
+					.println("Using localhost as hostname as defined by system property: "
 							+ FORCE_LOCALHOST_KEY);
 			hostname = "localhost";
 		} else {
 			hostname = InetAddress.getLocalHost().getHostName();
 		}
 
-		System.out
-				.println("* Create an RMI/JMX connector server, hostname is: "
-						+ hostname);
+		System.out.println("Create an RMI/JMX connector server, hostname is: ["
+				+ hostname + "]");
 		String serviceUrl = "service:jmx:rmi://" + hostname + ":" + port
 				+ "/jndi/rmi://" + hostname + ":" + port + "/jmxrmi";
-		System.out.println("*  and url is: " + serviceUrl);
+		System.out.println("and url is: [" + serviceUrl + "]");
 		JMXServiceURL url = new JMXServiceURL(serviceUrl);
 
 		// Now create the server from the JMXServiceURL
-		//
 		JMXConnectorServer cs = JMXConnectorServerFactory
 				.newJMXConnectorServer(url, env, mbs);
 
 		// Start the RMI connector server.
-		//
-		System.out.println("* Start the RMI/JMX connector server on port "
-				+ port);
+		System.out.println("Start the RMI/JMX connector server on port ["
+				+ port + "]");
 		cs.start();
-
-		System.out.println("*");
-		System.out
-				.println("******************************************************");
-		System.out.println();
 	}
 
 	private static final int parseInt(String s, int defaultValue) {
