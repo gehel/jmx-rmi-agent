@@ -44,7 +44,18 @@ Downloads
 
 Ready to use binaries can be found on our [download page][downloads].
 
+Maven repositories
+------------------
+
+In case you need it Maven repositories are available through Sonatype :
+
+* [Snapshots repository][snapshots]
+* [Releases repository][releases]
+
 [issues]: https://github.com/gehel/jmx-rmi-agent/issues
 [JMXauth]: http://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth
 [downloads]: https://github.com/gehel/jmx-rmi-agent/downloads
-[snapshots]: https://oss.sonatype.org/content/repositories/snapshots/ch/ledcom/agent/jmx/jmx-rmi-agent/
+[snapshots]: https://oss.sonatype.org/content/repositories/snapshots/
+[snapshots-project]: https://oss.sonatype.org/content/repositories/snapshots/ch/ledcom/agent/jmx/jmx-rmi-agent/
+[releases]: https://oss.sonatype.org/content/repositories/releases/
+[releases-project]: https://oss.sonatype.org/content/repositories/releases/ch/ledcom/agent/jmx/jmx-rmi-agent/
