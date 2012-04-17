@@ -184,7 +184,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/gehel/jmx-rmi-agent.git</connection>
-        <developerConnection>scm:git:git@github.com:gehel/jmx-rmi-agent.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/gehel/jmx-rmi-agent.git</developerConnection>
         <url>https://github.com/gehel/jmx-rmi-agent</url>
     </scm>
 
