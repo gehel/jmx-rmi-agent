@@ -46,4 +46,4 @@ Snapshots of the project can be downloaded from our [snapshot repository][snapsh
 
 [issues]: https://github.com/gehel/jmx-rmi-agent/issues
 [JMXauth]: http://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth
-[snapshots] : https://oss.sonatype.org/content/repositories/snapshots/ch/ledcom/agent/jmx/jmx-rmi-agent/
+[snapshots]: https://oss.sonatype.org/content/repositories/snapshots/ch/ledcom/agent/jmx/jmx-rmi-agent/
