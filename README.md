@@ -6,6 +6,10 @@ on multiple blog articles and documentation readily found on the web. This agent
 barely deserve to be a project on its own, but I found myself in need of this
 simple project more than once, and maybe somebody else will need it as well.
 
+There are quite a few projects implementing an agent that will fix the RMI port
+issue, but I could not find one that would also configure a few other things,
+like authentication.
+
 Goal
 ----
 
