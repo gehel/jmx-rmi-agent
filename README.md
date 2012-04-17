@@ -39,5 +39,11 @@ The following additional parameters are supported:
 Password and access file are the standard files as described in the [official
 documentation][JMXauth].
 
+Downloads
+---------
+
+Snapshots of the project can be downloaded from our [snapshot repository][snapshots].
+
 [issues]: https://github.com/gehel/jmx-rmi-agent/issues
 [JMXauth]: http://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth
+[snapshots] : https://oss.sonatype.org/content/repositories/snapshots/ch/ledcom/agent/jmx/jmx-rmi-agent/
