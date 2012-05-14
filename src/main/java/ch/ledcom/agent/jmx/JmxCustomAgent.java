@@ -231,11 +231,11 @@ import javax.management.remote.JMXServiceURL;
 public class JmxCustomAgent {
 
 	private static final String BASE = "ch.ledcom.agent.jmx.";
-	private static final String PORT_KEY = BASE + "port";
-	private static final String FORCE_LOCALHOST_KEY = BASE + "forceLocalhost";
-	private static final String AUTHENTICATE = BASE + "authenticate";
-	private static final String PASSWORD_FILE = BASE + "password.file";
-	private static final String ACCESS_FILE = BASE + "access.file";
+	public static final String PORT_KEY = BASE + "port";
+	public static final String FORCE_LOCALHOST_KEY = BASE + "forceLocalhost";
+	public static final String AUTHENTICATE = BASE + "authenticate";
+	public static final String PASSWORD_FILE = BASE + "password.file";
+	public static final String ACCESS_FILE = BASE + "access.file";
 
 	private static final int DEFAULT_PORT = 3000;
 
