@@ -211,10 +211,16 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
+
+    @After
+    public void afterTest() throws InterruptedException {
+        stopDummyApplication();
+    }
 
 	@Test
 	public void testConnectingNoPassword() throws InterruptedException,
