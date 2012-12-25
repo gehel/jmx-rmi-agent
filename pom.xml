@@ -72,7 +72,7 @@
                             <skip>false</skip>
                             <includes>
                                 <!-- Include integration tests within integration-test phase. -->
-                                <include>**/*IntegrationTests.java</include>
+                                <include>**/IT*.java</include>
                             </includes>
                         </configuration>
                     </execution>

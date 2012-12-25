@@ -225,7 +225,7 @@ public abstract class AbstractJMXConnectionTest {
 		args.add("java");
 		args.add("-javaagent:target/jmx-rmi-agent-0.1-SNAPSHOT.jar");
 		args.add("-cp");
-		args.add("target/classes/");
+		args.add("target/test-classes/");
 		
 		args.addAll(Arrays.asList(additionalArguments));
 		
