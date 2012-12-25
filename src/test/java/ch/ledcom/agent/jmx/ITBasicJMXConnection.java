@@ -214,7 +214,7 @@ import javax.management.remote.JMXServiceURL;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class BasicJMXConnectionTest extends AbstractJMXConnectionTest {
+public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
 
 	@Test
 	public void testConnectingNoPassword() throws InterruptedException,
