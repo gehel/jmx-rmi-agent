@@ -43,15 +43,10 @@ The following additional parameters are supported:
 Password and access file are the standard files as described in the [official
 documentation][JMXauth].
 
-Downloads
----------
-
-Ready to use binaries can be found on our [download page][downloads].
-
 Maven repositories
 ------------------
 
-In case you need it Maven repositories are available through Sonatype :
+You can download this project from Maven repositories :
 
 * [Snapshots repository][snapshots]
 * [Releases repository][releases]
@@ -59,7 +54,6 @@ In case you need it Maven repositories are available through Sonatype :
 
 [issues]: https://github.com/gehel/jmx-rmi-agent/issues
 [JMXauth]: http://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth
-[downloads]: https://github.com/gehel/jmx-rmi-agent/downloads
 [snapshots]: https://oss.sonatype.org/content/repositories/snapshots/
 [snapshots-project]: https://oss.sonatype.org/content/repositories/snapshots/ch/ledcom/agent/jmx/jmx-rmi-agent/
 [releases]: https://oss.sonatype.org/content/repositories/releases/
