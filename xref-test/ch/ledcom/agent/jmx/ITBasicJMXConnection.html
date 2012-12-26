@@ -215,51 +215,77 @@
 <a class="jxr_linenumber" name="205" href="#205">205</a> <strong class="jxr_keyword">package</strong> ch.ledcom.agent.jmx;
 <a class="jxr_linenumber" name="206" href="#206">206</a> 
 <a class="jxr_linenumber" name="207" href="#207">207</a> <strong class="jxr_keyword">import</strong> java.io.IOException;
-<a class="jxr_linenumber" name="208" href="#208">208</a> 
-<a class="jxr_linenumber" name="209" href="#209">209</a> <strong class="jxr_keyword">import</strong> javax.management.MBeanServerConnection;
-<a class="jxr_linenumber" name="210" href="#210">210</a> <strong class="jxr_keyword">import</strong> javax.management.remote.JMXConnector;
-<a class="jxr_linenumber" name="211" href="#211">211</a> <strong class="jxr_keyword">import</strong> javax.management.remote.JMXConnectorFactory;
-<a class="jxr_linenumber" name="212" href="#212">212</a> <strong class="jxr_keyword">import</strong> javax.management.remote.JMXServiceURL;
-<a class="jxr_linenumber" name="213" href="#213">213</a> 
-<a class="jxr_linenumber" name="214" href="#214">214</a> <strong class="jxr_keyword">import</strong> org.junit.After;
-<a class="jxr_linenumber" name="215" href="#215">215</a> <strong class="jxr_keyword">import</strong> org.junit.Assert;
-<a class="jxr_linenumber" name="216" href="#216">216</a> <strong class="jxr_keyword">import</strong> org.junit.Test;
-<a class="jxr_linenumber" name="217" href="#217">217</a> 
-<a class="jxr_linenumber" name="218" href="#218">218</a> <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../ch/ledcom/agent/jmx/ITBasicJMXConnection.html">ITBasicJMXConnection</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../ch/ledcom/agent/jmx/AbstractJMXConnectionTest.html">AbstractJMXConnectionTest</a> {
+<a class="jxr_linenumber" name="208" href="#208">208</a> <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="209" href="#209">209</a> <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="210" href="#210">210</a> 
+<a class="jxr_linenumber" name="211" href="#211">211</a> <strong class="jxr_keyword">import</strong> javax.management.MBeanServerConnection;
+<a class="jxr_linenumber" name="212" href="#212">212</a> <strong class="jxr_keyword">import</strong> javax.management.remote.JMXConnector;
+<a class="jxr_linenumber" name="213" href="#213">213</a> <strong class="jxr_keyword">import</strong> javax.management.remote.JMXConnectorFactory;
+<a class="jxr_linenumber" name="214" href="#214">214</a> <strong class="jxr_keyword">import</strong> javax.management.remote.JMXServiceURL;
+<a class="jxr_linenumber" name="215" href="#215">215</a> 
+<a class="jxr_linenumber" name="216" href="#216">216</a> <strong class="jxr_keyword">import</strong> org.junit.After;
+<a class="jxr_linenumber" name="217" href="#217">217</a> <strong class="jxr_keyword">import</strong> org.junit.Assert;
+<a class="jxr_linenumber" name="218" href="#218">218</a> <strong class="jxr_keyword">import</strong> org.junit.Test;
 <a class="jxr_linenumber" name="219" href="#219">219</a> 
-<a class="jxr_linenumber" name="220" href="#220">220</a>     @After
-<a class="jxr_linenumber" name="221" href="#221">221</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterTest() <strong class="jxr_keyword">throws</strong> InterruptedException {
-<a class="jxr_linenumber" name="222" href="#222">222</a>         stopDummyApplication();
-<a class="jxr_linenumber" name="223" href="#223">223</a>     }
-<a class="jxr_linenumber" name="224" href="#224">224</a> 
-<a class="jxr_linenumber" name="225" href="#225">225</a>     @Test
-<a class="jxr_linenumber" name="226" href="#226">226</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConnectingNoPassword() <strong class="jxr_keyword">throws</strong> InterruptedException,
-<a class="jxr_linenumber" name="227" href="#227">227</a>             IOException {
-<a class="jxr_linenumber" name="228" href="#228">228</a>         startDummyApplication(<span class="jxr_string">"-D"</span> + JmxCustomAgent.PORT_KEY + <span class="jxr_string">"=9998"</span>);
-<a class="jxr_linenumber" name="229" href="#229">229</a> 
-<a class="jxr_linenumber" name="230" href="#230">230</a>         checkConnection(9998);
-<a class="jxr_linenumber" name="231" href="#231">231</a>     }
-<a class="jxr_linenumber" name="232" href="#232">232</a> 
-<a class="jxr_linenumber" name="233" href="#233">233</a>     @Test(expected = SecurityException.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="234" href="#234">234</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConnectingWrongPassword() <strong class="jxr_keyword">throws</strong> InterruptedException,
-<a class="jxr_linenumber" name="235" href="#235">235</a>             IOException {
-<a class="jxr_linenumber" name="236" href="#236">236</a>         startDummyApplication(<span class="jxr_string">"-D"</span> + JmxCustomAgent.PORT_KEY + <span class="jxr_string">"=9999"</span>, <span class="jxr_string">"-D"</span>
-<a class="jxr_linenumber" name="237" href="#237">237</a>                 + JmxCustomAgent.PASSWORD_FILE
-<a class="jxr_linenumber" name="238" href="#238">238</a>                 + <span class="jxr_string">"=src/test/resources/jmxremote.password"</span>);
-<a class="jxr_linenumber" name="239" href="#239">239</a>         checkConnection(9999);
-<a class="jxr_linenumber" name="240" href="#240">240</a>     }
-<a class="jxr_linenumber" name="241" href="#241">241</a> 
-<a class="jxr_linenumber" name="242" href="#242">242</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkConnection(<strong class="jxr_keyword">int</strong> port) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="243" href="#243">243</a>         String urlString = <span class="jxr_string">"service:jmx:rmi://"</span> + HOST + <span class="jxr_string">":"</span> + port + <span class="jxr_string">"/jndi/rmi://"</span> + HOST + <span class="jxr_string">":"</span> + port + <span class="jxr_string">"/jmxrmi"</span>;
-<a class="jxr_linenumber" name="244" href="#244">244</a>         System.out.println(<span class="jxr_string">"Checking url ["</span> + urlString + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="245" href="#245">245</a>         JMXServiceURL url = <strong class="jxr_keyword">new</strong> JMXServiceURL(
-<a class="jxr_linenumber" name="246" href="#246">246</a>                 urlString);
-<a class="jxr_linenumber" name="247" href="#247">247</a>         JMXConnector jmxc = JMXConnectorFactory.connect(url, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="248" href="#248">248</a>         MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
-<a class="jxr_linenumber" name="249" href="#249">249</a>         Assert.assertNotNull(mbsc);
-<a class="jxr_linenumber" name="250" href="#250">250</a>     }
-<a class="jxr_linenumber" name="251" href="#251">251</a> 
-<a class="jxr_linenumber" name="252" href="#252">252</a> }
+<a class="jxr_linenumber" name="220" href="#220">220</a> <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../ch/ledcom/agent/jmx/ITBasicJMXConnection.html">ITBasicJMXConnection</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../ch/ledcom/agent/jmx/AbstractJMXConnectionTest.html">AbstractJMXConnectionTest</a> {
+<a class="jxr_linenumber" name="221" href="#221">221</a> 
+<a class="jxr_linenumber" name="222" href="#222">222</a>     @After
+<a class="jxr_linenumber" name="223" href="#223">223</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterTest() <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="224" href="#224">224</a>         stopDummyApplication();
+<a class="jxr_linenumber" name="225" href="#225">225</a>     }
+<a class="jxr_linenumber" name="226" href="#226">226</a> 
+<a class="jxr_linenumber" name="227" href="#227">227</a>     @Test
+<a class="jxr_linenumber" name="228" href="#228">228</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConnectingNoPassword() <strong class="jxr_keyword">throws</strong> InterruptedException,
+<a class="jxr_linenumber" name="229" href="#229">229</a>             IOException {
+<a class="jxr_linenumber" name="230" href="#230">230</a>         startDummyApplication(<span class="jxr_string">"-D"</span> + JmxCustomAgent.PORT_KEY + <span class="jxr_string">"=9997"</span>);
+<a class="jxr_linenumber" name="231" href="#231">231</a> 
+<a class="jxr_linenumber" name="232" href="#232">232</a>         checkAndReturnConnection(9997);
+<a class="jxr_linenumber" name="233" href="#233">233</a>     }
+<a class="jxr_linenumber" name="234" href="#234">234</a> 
+<a class="jxr_linenumber" name="235" href="#235">235</a>     @Test
+<a class="jxr_linenumber" name="236" href="#236">236</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConnectingValidPassword() <strong class="jxr_keyword">throws</strong> InterruptedException,
+<a class="jxr_linenumber" name="237" href="#237">237</a>             IOException {
+<a class="jxr_linenumber" name="238" href="#238">238</a>         startDummyApplication(<span class="jxr_string">"-D"</span> + JmxCustomAgent.PORT_KEY + <span class="jxr_string">"=9998"</span>,
+<a class="jxr_linenumber" name="239" href="#239">239</a>                 <span class="jxr_string">"-D"</span> + JmxCustomAgent.AUTHENTICATE + <span class="jxr_string">"=true"</span>,
+<a class="jxr_linenumber" name="240" href="#240">240</a>                 <span class="jxr_string">"-D"</span> + JmxCustomAgent.PASSWORD_FILE + <span class="jxr_string">"=target/test-classes/jmxremote.password"</span>,
+<a class="jxr_linenumber" name="241" href="#241">241</a>                 <span class="jxr_string">"-D"</span> + JmxCustomAgent.ACCESS_FILE + <span class="jxr_string">"=target/test-classes/jmxremote.access"</span>);
+<a class="jxr_linenumber" name="242" href="#242">242</a> 
+<a class="jxr_linenumber" name="243" href="#243">243</a>         checkAndReturnConnection(9998, <span class="jxr_string">"testUser"</span>, <span class="jxr_string">"1234"</span>);
+<a class="jxr_linenumber" name="244" href="#244">244</a>     }
+<a class="jxr_linenumber" name="245" href="#245">245</a> 
+<a class="jxr_linenumber" name="246" href="#246">246</a>     @Test(expected = SecurityException.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="247" href="#247">247</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConnectingWrongPassword() <strong class="jxr_keyword">throws</strong> InterruptedException,
+<a class="jxr_linenumber" name="248" href="#248">248</a>             IOException {
+<a class="jxr_linenumber" name="249" href="#249">249</a>         startDummyApplication(<span class="jxr_string">"-D"</span> + JmxCustomAgent.PORT_KEY + <span class="jxr_string">"=9999"</span>, <span class="jxr_string">"-D"</span>
+<a class="jxr_linenumber" name="250" href="#250">250</a>                 + JmxCustomAgent.PASSWORD_FILE
+<a class="jxr_linenumber" name="251" href="#251">251</a>                 + <span class="jxr_string">"=src/test/resources/jmxremote.password"</span>);
+<a class="jxr_linenumber" name="252" href="#252">252</a>         checkAndReturnConnection(9999);
+<a class="jxr_linenumber" name="253" href="#253">253</a>     }
+<a class="jxr_linenumber" name="254" href="#254">254</a> 
+<a class="jxr_linenumber" name="255" href="#255">255</a>     <strong class="jxr_keyword">private</strong> MBeanServerConnection checkAndReturnConnection(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> port) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="256" href="#256">256</a>         <strong class="jxr_keyword">return</strong> checkAndReturnConnection(port, (String) <strong class="jxr_keyword">null</strong>, (String) <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="257" href="#257">257</a>     }
+<a class="jxr_linenumber" name="258" href="#258">258</a> 
+<a class="jxr_linenumber" name="259" href="#259">259</a>     <strong class="jxr_keyword">private</strong> MBeanServerConnection checkAndReturnConnection(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> port, <strong class="jxr_keyword">final</strong> String username,
+<a class="jxr_linenumber" name="260" href="#260">260</a>                                                            <strong class="jxr_keyword">final</strong> String password) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="261" href="#261">261</a>         String urlString = <span class="jxr_string">"service:jmx:rmi://"</span> + HOST + <span class="jxr_string">":"</span> + port + <span class="jxr_string">"/jndi/rmi://"</span> + HOST + <span class="jxr_string">":"</span> + port + <span class="jxr_string">"/jmxrmi"</span>;
+<a class="jxr_linenumber" name="262" href="#262">262</a>         System.out.println(<span class="jxr_string">"Checking url ["</span> + urlString + <span class="jxr_string">"]"</span>);
+<a class="jxr_linenumber" name="263" href="#263">263</a>         JMXServiceURL url = <strong class="jxr_keyword">new</strong> JMXServiceURL(
+<a class="jxr_linenumber" name="264" href="#264">264</a>                 urlString);
+<a class="jxr_linenumber" name="265" href="#265">265</a>         Map&lt;String, Object&gt; env = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Object&gt;();
+<a class="jxr_linenumber" name="266" href="#266">266</a>         <strong class="jxr_keyword">if</strong> (username != <strong class="jxr_keyword">null</strong> &amp;&amp; password != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="267" href="#267">267</a>             String[] creds = <strong class="jxr_keyword">new</strong> String[2];
+<a class="jxr_linenumber" name="268" href="#268">268</a>             creds[0] = username;
+<a class="jxr_linenumber" name="269" href="#269">269</a>             creds[1] = password;
+<a class="jxr_linenumber" name="270" href="#270">270</a>             env.put(JMXConnector.CREDENTIALS, creds);
+<a class="jxr_linenumber" name="271" href="#271">271</a>         }
+<a class="jxr_linenumber" name="272" href="#272">272</a>         JMXConnector jmxc = JMXConnectorFactory.connect(url, env);
+<a class="jxr_linenumber" name="273" href="#273">273</a>         MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
+<a class="jxr_linenumber" name="274" href="#274">274</a>         Assert.assertNotNull(mbsc);
+<a class="jxr_linenumber" name="275" href="#275">275</a>         <strong class="jxr_keyword">return</strong> mbsc;
+<a class="jxr_linenumber" name="276" href="#276">276</a>     }
+<a class="jxr_linenumber" name="277" href="#277">277</a> 
+<a class="jxr_linenumber" name="278" href="#278">278</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
