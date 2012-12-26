@@ -217,18 +217,20 @@ import org.junit.Test;
 
 public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
 
+    private static final String HOST = "127.0.0.1";
+
     @After
     public void afterTest() throws InterruptedException {
         stopDummyApplication();
     }
 
-	@Test
-	public void testConnectingNoPassword() throws InterruptedException,
-			IOException {
-		startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9998");
+    @Test
+    public void testConnectingNoPassword() throws InterruptedException,
+            IOException {
+        startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9998");
 
         checkConnection(9998);
-	}
+    }
 
     @Test(expected = SecurityException.class)
     public void testConnectingWrongPassword() throws InterruptedException,
@@ -241,7 +243,7 @@ public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
 
     private void checkConnection(int port) throws IOException {
         JMXServiceURL url = new JMXServiceURL(
-                "service:jmx:rmi://localhost:"+port+"/jndi/rmi://localhost:"+ port +"/jmxrmi");
+                "service:jmx:rmi://" + HOST + ":" + port + "/jndi/rmi://" + HOST + ":" + port + "/jmxrmi");
         JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
         MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
         Assert.assertNotNull(mbsc);
