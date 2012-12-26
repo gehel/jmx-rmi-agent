@@ -242,8 +242,10 @@ public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
     }
 
     private void checkConnection(int port) throws IOException {
+        String urlString = "service:jmx:rmi://" + HOST + ":" + port + "/jndi/rmi://" + HOST + ":" + port + "/jmxrmi";
+        System.out.println("Checking url [" + urlString + "]");
         JMXServiceURL url = new JMXServiceURL(
-                "service:jmx:rmi://" + HOST + ":" + port + "/jndi/rmi://" + HOST + ":" + port + "/jmxrmi");
+                urlString);
         JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
         MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
         Assert.assertNotNull(mbsc);
