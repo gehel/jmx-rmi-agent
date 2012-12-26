@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012 LedCom</copyright>
     <item>
-      <title>File: 1,
-             Errors: 17,
+      <title>File: 2,
+             Errors: 5,
              Warnings: 0,
              Infos: 0
       </title>
@@ -29,6 +29,20 @@
           <tbody>
                           <tr>
                 <td>
+                  <a href="http://gehel.github.com/jmx-rmi-agent//checkstyle.html#ch.ledcom.agent.jmx.package-info.java">ch/ledcom/agent/jmx/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://gehel.github.com/jmx-rmi-agent//checkstyle.html#ch.ledcom.agent.jmx.JmxCustomAgent.java">ch/ledcom/agent/jmx/JmxCustomAgent.java</a>
                 </td>
                 <td>
@@ -38,7 +52,7 @@
                   0
                 </td>
                 <td>
-                  17
+                  3
                 </td>
               </tr>
                       </tbody>
