@@ -327,43 +327,45 @@
 <a class="jxr_linenumber" name="317" href="#317">317</a>         String hostname;
 <a class="jxr_linenumber" name="318" href="#318">318</a>         <strong class="jxr_keyword">if</strong> (forceLocalhost) {
 <a class="jxr_linenumber" name="319" href="#319">319</a>             System.out
-<a class="jxr_linenumber" name="320" href="#320">320</a>                     .println(<span class="jxr_string">"Using localhost as hostname as defined by system property: "</span>
-<a class="jxr_linenumber" name="321" href="#321">321</a>                             + FORCE_LOCALHOST_KEY);
-<a class="jxr_linenumber" name="322" href="#322">322</a>             hostname = <span class="jxr_string">"localhost"</span>;
-<a class="jxr_linenumber" name="323" href="#323">323</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="324" href="#324">324</a>             hostname = InetAddress.getLocalHost().getHostName();
-<a class="jxr_linenumber" name="325" href="#325">325</a>         }
-<a class="jxr_linenumber" name="326" href="#326">326</a> 
-<a class="jxr_linenumber" name="327" href="#327">327</a>         System.out.println(<span class="jxr_string">"Create an RMI/JMX connector server, hostname is: ["</span>
-<a class="jxr_linenumber" name="328" href="#328">328</a>                 + hostname + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="329" href="#329">329</a>         String serviceUrl = <span class="jxr_string">"service:jmx:rmi://"</span> + hostname + <span class="jxr_string">":"</span> + port
-<a class="jxr_linenumber" name="330" href="#330">330</a>                 + <span class="jxr_string">"/jndi/rmi://"</span> + hostname + <span class="jxr_string">":"</span> + port + <span class="jxr_string">"/jmxrmi"</span>;
-<a class="jxr_linenumber" name="331" href="#331">331</a>         System.out.println(<span class="jxr_string">"and url is: ["</span> + serviceUrl + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="332" href="#332">332</a>         JMXServiceURL url = <strong class="jxr_keyword">new</strong> JMXServiceURL(serviceUrl);
-<a class="jxr_linenumber" name="333" href="#333">333</a> 
-<a class="jxr_linenumber" name="334" href="#334">334</a>         <em class="jxr_comment">// Now create the server from the JMXServiceURL</em>
-<a class="jxr_linenumber" name="335" href="#335">335</a>         JMXConnectorServer cs = JMXConnectorServerFactory
-<a class="jxr_linenumber" name="336" href="#336">336</a>                 .newJMXConnectorServer(url, env, mbs);
-<a class="jxr_linenumber" name="337" href="#337">337</a> 
-<a class="jxr_linenumber" name="338" href="#338">338</a>         <em class="jxr_comment">// Start the RMI connector server.</em>
-<a class="jxr_linenumber" name="339" href="#339">339</a>         System.out.println(<span class="jxr_string">"Start the RMI/JMX connector server on port ["</span>
-<a class="jxr_linenumber" name="340" href="#340">340</a>                 + port + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="341" href="#341">341</a>         cs.start();
-<a class="jxr_linenumber" name="342" href="#342">342</a>     }
-<a class="jxr_linenumber" name="343" href="#343">343</a> 
-<a class="jxr_linenumber" name="344" href="#344">344</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="345" href="#345">345</a> <em class="jxr_javadoccomment">     * Utility method to parse integer.</em>
-<a class="jxr_linenumber" name="346" href="#346">346</a> <em class="jxr_javadoccomment">     * @param s String to parse as an int</em>
-<a class="jxr_linenumber" name="347" href="#347">347</a> <em class="jxr_javadoccomment">     * @param defaultValue default value to return in case the String is empty</em>
-<a class="jxr_linenumber" name="348" href="#348">348</a> <em class="jxr_javadoccomment">     * @return the integer represented by the String or the default value if the String is empty</em>
-<a class="jxr_linenumber" name="349" href="#349">349</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="350" href="#350">350</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> parseInt(<strong class="jxr_keyword">final</strong> String s, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> defaultValue) {
-<a class="jxr_linenumber" name="351" href="#351">351</a>         <strong class="jxr_keyword">if</strong> (s == <strong class="jxr_keyword">null</strong> || s.trim().equals(<span class="jxr_string">""</span>)) {
-<a class="jxr_linenumber" name="352" href="#352">352</a>             <strong class="jxr_keyword">return</strong> defaultValue;
-<a class="jxr_linenumber" name="353" href="#353">353</a>         }
-<a class="jxr_linenumber" name="354" href="#354">354</a>         <strong class="jxr_keyword">return</strong> Integer.parseInt(s);
-<a class="jxr_linenumber" name="355" href="#355">355</a>     }
-<a class="jxr_linenumber" name="356" href="#356">356</a> }
+<a class="jxr_linenumber" name="320" href="#320">320</a>                     .println(<span class="jxr_string">"Using localhost as hostname "</span> +
+<a class="jxr_linenumber" name="321" href="#321">321</a>                             <span class="jxr_string">"as defined by system property: "</span>
+<a class="jxr_linenumber" name="322" href="#322">322</a>                             + FORCE_LOCALHOST_KEY);
+<a class="jxr_linenumber" name="323" href="#323">323</a>             hostname = <span class="jxr_string">"localhost"</span>;
+<a class="jxr_linenumber" name="324" href="#324">324</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="325" href="#325">325</a>             hostname = InetAddress.getLocalHost().getHostName();
+<a class="jxr_linenumber" name="326" href="#326">326</a>         }
+<a class="jxr_linenumber" name="327" href="#327">327</a> 
+<a class="jxr_linenumber" name="328" href="#328">328</a>         System.out.println(<span class="jxr_string">"Create an RMI/JMX connector server, hostname is: ["</span>
+<a class="jxr_linenumber" name="329" href="#329">329</a>                 + hostname + <span class="jxr_string">"]"</span>);
+<a class="jxr_linenumber" name="330" href="#330">330</a>         String serviceUrl = <span class="jxr_string">"service:jmx:rmi://"</span> + hostname + <span class="jxr_string">":"</span> + port
+<a class="jxr_linenumber" name="331" href="#331">331</a>                 + <span class="jxr_string">"/jndi/rmi://"</span> + hostname + <span class="jxr_string">":"</span> + port + <span class="jxr_string">"/jmxrmi"</span>;
+<a class="jxr_linenumber" name="332" href="#332">332</a>         System.out.println(<span class="jxr_string">"and url is: ["</span> + serviceUrl + <span class="jxr_string">"]"</span>);
+<a class="jxr_linenumber" name="333" href="#333">333</a>         JMXServiceURL url = <strong class="jxr_keyword">new</strong> JMXServiceURL(serviceUrl);
+<a class="jxr_linenumber" name="334" href="#334">334</a> 
+<a class="jxr_linenumber" name="335" href="#335">335</a>         <em class="jxr_comment">// Now create the server from the JMXServiceURL</em>
+<a class="jxr_linenumber" name="336" href="#336">336</a>         JMXConnectorServer cs = JMXConnectorServerFactory
+<a class="jxr_linenumber" name="337" href="#337">337</a>                 .newJMXConnectorServer(url, env, mbs);
+<a class="jxr_linenumber" name="338" href="#338">338</a> 
+<a class="jxr_linenumber" name="339" href="#339">339</a>         <em class="jxr_comment">// Start the RMI connector server.</em>
+<a class="jxr_linenumber" name="340" href="#340">340</a>         System.out.println(<span class="jxr_string">"Start the RMI/JMX connector server on port ["</span>
+<a class="jxr_linenumber" name="341" href="#341">341</a>                 + port + <span class="jxr_string">"]"</span>);
+<a class="jxr_linenumber" name="342" href="#342">342</a>         cs.start();
+<a class="jxr_linenumber" name="343" href="#343">343</a>     }
+<a class="jxr_linenumber" name="344" href="#344">344</a> 
+<a class="jxr_linenumber" name="345" href="#345">345</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="346" href="#346">346</a> <em class="jxr_javadoccomment">     * Utility method to parse integer.</em>
+<a class="jxr_linenumber" name="347" href="#347">347</a> <em class="jxr_javadoccomment">     * @param s String to parse as an int</em>
+<a class="jxr_linenumber" name="348" href="#348">348</a> <em class="jxr_javadoccomment">     * @param defaultValue default value to return in case the String is empty</em>
+<a class="jxr_linenumber" name="349" href="#349">349</a> <em class="jxr_javadoccomment">     * @return the integer represented by the String or the default value if</em>
+<a class="jxr_linenumber" name="350" href="#350">350</a> <em class="jxr_javadoccomment">     * the String is empty</em>
+<a class="jxr_linenumber" name="351" href="#351">351</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="352" href="#352">352</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> parseInt(<strong class="jxr_keyword">final</strong> String s, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> defaultValue) {
+<a class="jxr_linenumber" name="353" href="#353">353</a>         <strong class="jxr_keyword">if</strong> (s == <strong class="jxr_keyword">null</strong> || s.trim().equals(<span class="jxr_string">""</span>)) {
+<a class="jxr_linenumber" name="354" href="#354">354</a>             <strong class="jxr_keyword">return</strong> defaultValue;
+<a class="jxr_linenumber" name="355" href="#355">355</a>         }
+<a class="jxr_linenumber" name="356" href="#356">356</a>         <strong class="jxr_keyword">return</strong> Integer.parseInt(s);
+<a class="jxr_linenumber" name="357" href="#357">357</a>     }
+<a class="jxr_linenumber" name="358" href="#358">358</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
