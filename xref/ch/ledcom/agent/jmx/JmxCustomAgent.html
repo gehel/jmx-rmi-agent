@@ -266,7 +266,7 @@
 <a class="jxr_linenumber" name="256" href="#256">256</a> <em class="jxr_javadoccomment">     * Entry point into a JavaAgent.</em>
 <a class="jxr_linenumber" name="257" href="#257">257</a> <em class="jxr_javadoccomment">     * @param agentArgs arguments given to the agent (not used, we only use</em>
 <a class="jxr_linenumber" name="258" href="#258">258</a> <em class="jxr_javadoccomment">     *                  system properties)</em>
-<a class="jxr_linenumber" name="259" href="#259">259</a> <em class="jxr_javadoccomment">     * @throws IOException</em>
+<a class="jxr_linenumber" name="259" href="#259">259</a> <em class="jxr_javadoccomment">     * @throws IOException in case of problems setting up the agent</em>
 <a class="jxr_linenumber" name="260" href="#260">260</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="261" href="#261">261</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> premain(<strong class="jxr_keyword">final</strong> String agentArgs) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="262" href="#262">262</a>         <em class="jxr_comment">// get all parameters from environment</em>
@@ -327,8 +327,8 @@
 <a class="jxr_linenumber" name="317" href="#317">317</a>         String hostname;
 <a class="jxr_linenumber" name="318" href="#318">318</a>         <strong class="jxr_keyword">if</strong> (forceLocalhost) {
 <a class="jxr_linenumber" name="319" href="#319">319</a>             System.out
-<a class="jxr_linenumber" name="320" href="#320">320</a>                     .println(<span class="jxr_string">"Using localhost as hostname "</span> +
-<a class="jxr_linenumber" name="321" href="#321">321</a>                             <span class="jxr_string">"as defined by system property: "</span>
+<a class="jxr_linenumber" name="320" href="#320">320</a>                     .println(<span class="jxr_string">"Using localhost as hostname "</span>
+<a class="jxr_linenumber" name="321" href="#321">321</a>                             + <span class="jxr_string">"as defined by system property: "</span>
 <a class="jxr_linenumber" name="322" href="#322">322</a>                             + FORCE_LOCALHOST_KEY);
 <a class="jxr_linenumber" name="323" href="#323">323</a>             hostname = <span class="jxr_string">"localhost"</span>;
 <a class="jxr_linenumber" name="324" href="#324">324</a>         } <strong class="jxr_keyword">else</strong> {
