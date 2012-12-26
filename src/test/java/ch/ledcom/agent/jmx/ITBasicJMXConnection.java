@@ -217,8 +217,6 @@ import org.junit.Test;
 
 public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
 
-    private static final String HOST = "127.0.0.1";
-
     @After
     public void afterTest() throws InterruptedException {
         stopDummyApplication();

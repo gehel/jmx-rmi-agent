@@ -218,6 +218,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public abstract class AbstractJMXConnectionTest {
 
+    protected static final String HOST = "localhost";
     private static final int PAUSE = 500;
 
     private Process process;

@@ -303,7 +303,7 @@ public class JmxCustomAgent {
 			System.out
 					.println("Using localhost as hostname as defined by system property: "
 							+ FORCE_LOCALHOST_KEY);
-			hostname = "127.0.0.1";
+			hostname = "localhost";
 		} else {
 			hostname = InetAddress.getLocalHost().getHostName();
 		}
