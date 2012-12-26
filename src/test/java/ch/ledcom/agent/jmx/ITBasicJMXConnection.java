@@ -205,6 +205,8 @@
 package ch.ledcom.agent.jmx;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXConnector;
@@ -225,9 +227,20 @@ public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
     @Test
     public void testConnectingNoPassword() throws InterruptedException,
             IOException {
-        startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9998");
+        startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9997");
 
-        checkConnection(9998);
+        checkAndReturnConnection(9997);
+    }
+
+    @Test
+    public void testConnectingValidPassword() throws InterruptedException,
+            IOException {
+        startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9998",
+                "-D" + JmxCustomAgent.AUTHENTICATE + "=true",
+                "-D" + JmxCustomAgent.PASSWORD_FILE + "=target/test-classes/jmxremote.password",
+                "-D" + JmxCustomAgent.ACCESS_FILE + "=target/test-classes/jmxremote.access");
+
+        checkAndReturnConnection(9998, "testUser", "1234");
     }
 
     @Test(expected = SecurityException.class)
@@ -236,17 +249,30 @@ public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
         startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9999", "-D"
                 + JmxCustomAgent.PASSWORD_FILE
                 + "=src/test/resources/jmxremote.password");
-        checkConnection(9999);
+        checkAndReturnConnection(9999);
     }
 
-    private void checkConnection(int port) throws IOException {
+    private MBeanServerConnection checkAndReturnConnection(final int port) throws IOException {
+        return checkAndReturnConnection(port, (String) null, (String) null);
+    }
+
+    private MBeanServerConnection checkAndReturnConnection(final int port, final String username,
+                                                           final String password) throws IOException {
         String urlString = "service:jmx:rmi://" + HOST + ":" + port + "/jndi/rmi://" + HOST + ":" + port + "/jmxrmi";
         System.out.println("Checking url [" + urlString + "]");
         JMXServiceURL url = new JMXServiceURL(
                 urlString);
-        JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
+        Map<String, Object> env = new HashMap<String, Object>();
+        if (username != null && password != null) {
+            String[] creds = new String[2];
+            creds[0] = username;
+            creds[1] = password;
+            env.put(JMXConnector.CREDENTIALS, creds);
+        }
+        JMXConnector jmxc = JMXConnectorFactory.connect(url, env);
         MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
         Assert.assertNotNull(mbsc);
+        return mbsc;
     }
 
 }
