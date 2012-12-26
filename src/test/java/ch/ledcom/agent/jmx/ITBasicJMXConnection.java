@@ -225,26 +225,26 @@ public class ITBasicJMXConnection extends AbstractJMXConnectionTest {
 	@Test
 	public void testConnectingNoPassword() throws InterruptedException,
 			IOException {
-		startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9999");
+		startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9998");
 
-		JMXServiceURL url = new JMXServiceURL(
-				"service:jmx:rmi:///jndi/rmi://:9999/jmxrmi");
-		JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
-		MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
-		Assert.assertNotNull(mbsc);
+        checkConnection(9998);
 	}
 
-	@Test(expected = SecurityException.class)
-	public void testConnectingWrongPassword() throws InterruptedException,
-			IOException {
-		startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9999", "-D"
-				+ JmxCustomAgent.PASSWORD_FILE
-				+ "=src/test/resources/jmxremote.password");
+    @Test(expected = SecurityException.class)
+    public void testConnectingWrongPassword() throws InterruptedException,
+            IOException {
+        startDummyApplication("-D" + JmxCustomAgent.PORT_KEY + "=9999", "-D"
+                + JmxCustomAgent.PASSWORD_FILE
+                + "=src/test/resources/jmxremote.password");
+        checkConnection(9999);
+    }
 
-		JMXServiceURL url = new JMXServiceURL(
-				"service:jmx:rmi:///jndi/rmi://:9999/jmxrmi");
-		JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
-		jmxc.getMBeanServerConnection();
-	}
+    private void checkConnection(int port) throws IOException {
+        JMXServiceURL url = new JMXServiceURL(
+                "service:jmx:rmi:///jndi/rmi://:"+ port +"/jmxrmi");
+        JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
+        MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
+        Assert.assertNotNull(mbsc);
+    }
 
 }
