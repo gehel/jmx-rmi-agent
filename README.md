@@ -59,3 +59,7 @@ You can download this project from Maven repositories :
 [releases]: https://oss.sonatype.org/content/repositories/releases/
 [releases-project]: https://oss.sonatype.org/content/repositories/releases/ch/ledcom/agent/jmx/jmx-rmi-agent/
 [maven-central]: http://repo1.maven.org/maven2/ch/ledcom/agent/jmx/jmx-rmi-agent/
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gehel/jmx-rmi-agent/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
