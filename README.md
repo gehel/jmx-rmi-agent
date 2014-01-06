@@ -35,10 +35,10 @@ line:
 The following additional parameters are supported:
 
     -Dch.ledcom.agent.jmx.port=<JMX port> the port on which JMX will be available (default = 3000)
-    -Dch.ledcom.agent.forceLocalhost=<true|false> is JMX available only from localhost
-    -Dch.ledcom.agent.authenticate=<true|false> is authentication required
-    -Dch.ledcom.agent.password.file=</path/to/password/file>
-    -Dch.ledcom.agent.access.file=</path/to/access/file>
+    -Dch.ledcom.agent.jmx.forceLocalhost=<true|false> is JMX available only from localhost
+    -Dch.ledcom.agent.jmx.authenticate=<true|false> is authentication required
+    -Dch.ledcom.agent.jmx.password.file=</path/to/password/file>
+    -Dch.ledcom.agent.jmx.access.file=</path/to/access/file>
 
 Password and access file are the standard files as described in the [official
 documentation][JMXauth].
