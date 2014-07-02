@@ -63,7 +63,9 @@ public final class JmxCustomAgent {
     /** Default JMX port. */
     private static final int DEFAULT_PORT = 3000;
 
-    /** Private constructor to make sure nobody tries to instantiate this class. */
+    /**
+     * Private constructor to make sure nobody tries to instantiate this class.
+     */
     private JmxCustomAgent() {
     }
 
