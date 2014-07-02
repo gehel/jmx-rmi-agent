@@ -1,4 +1,16 @@
 language: java
 jdk:
-  - oraclejdk7
-
+  - openjdk7
+before_script: "git clone -b travis `git config --get remote.origin.url` target/travis"
+script: "mvn verify --settings target/travis/settings.xml -B -V"
+after_success:
+  - "mvn deploy --settings target/travis/settings.xml -B -V"
+  - "mvn site --settings target/travis/settings.xml -B -V"
+branches:
+  except:
+    - travis
+    - gh-pages
+env:
+  global:
+    - secure: "ZDpcbPvno1Xh32YaA+CuDQGlLcV6NHBAKaAifaHRFWlHj0F7j7RgEaabfJTfB1tPNR2ueDjXnGROtcoKFKUuG1gXndZML5Bs1/HuMoa37Lx/ZoX6Y2C6+4po+IZ40XpDK+gBBF6fUmgTbSUnMdMu/5IiyNb6/sxUPxgbtnAJgVM="
+    - secure: "q/v2QvFfiYunYBuoMErCdWoDQur8pe/o+ADG3JoGRCJ5Fp1Q+1ud3I2ZtK0CxJZPi0soM6dc7RB7VgJ54pXwOmDpNceS3UgOEyz1M010eQ6hXInJClq7leKbUORU8vCOivR0cI9194Cu8cxblIjEaEuC1HpBcSphXBTinlFmMtE="
