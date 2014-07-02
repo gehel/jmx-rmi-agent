@@ -44,35 +44,26 @@ public final class JmxCustomAgent {
      * Base name for all parameter names.
      */
     private static final String BASE = "ch.ledcom.agent.jmx.";
-    /**
-     * Parameter name to set the JMX port.
-     */
+
+    /** Parameter name to set the JMX port. */
     public static final String PORT_KEY = BASE + "port";
-    /**
-     * Parameter name to force localhost.
-     */
+
+    /** Parameter name to force localhost. */
     public static final String FORCE_LOCALHOST_KEY = BASE + "forceLocalhost";
-    /**
-     * Parameter name to activate authentication.
-     */
+
+    /** Parameter name to activate authentication. */
     public static final String AUTHENTICATE = BASE + "authenticate";
-    /**
-     * Parameter name to set password file used for authentication.
-     */
+
+    /** Parameter name to set password file used for authentication. */
     public static final String PASSWORD_FILE = BASE + "password.file";
-    /**
-     * Parameter name to set access file used for authentication.
-     */
+
+    /** Parameter name to set access file used for authentication. */
     public static final String ACCESS_FILE = BASE + "access.file";
 
-    /**
-     * Default JMX port.
-     */
+    /** Default JMX port. */
     private static final int DEFAULT_PORT = 3000;
 
-    /**
-     * Private constructor to make sure nobody tries to instantiate this class.
-     */
+    /** Private constructor to make sure nobody tries to instantiate this class. */
     private JmxCustomAgent() {
     }
 
