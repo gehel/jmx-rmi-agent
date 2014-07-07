@@ -15,7 +15,8 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -79,6 +80,36 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.1-alpha-4</version>
+                <configuration>
+                    <group>Libraries/Java</group>
+                    <mappings>
+                        <mapping>
+                            <directory>/usr/local/share/java</directory>
+                            <sources>
+                                <source>
+                                    <location>target/${project.build.finalName}.jar</location>
+                                </source>
+                                <softlinkSource>
+                                    <destination>${project.artifactId}.jar</destination>
+                                    <location>${project.build.finalName}.jar</location>
+                                </softlinkSource>
+                            </sources>
+                        </mapping>
+                    </mappings>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-rpm</id>
+                        <goals>
+                            <goal>attached-rpm</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -99,7 +130,7 @@
         <connection>scm:git:git://github.com/gehel/jmx-rmi-agent.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/gehel/jmx-rmi-agent.git</developerConnection>
         <url>https://github.com/gehel/jmx-rmi-agent</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
 </project>

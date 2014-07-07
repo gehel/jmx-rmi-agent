@@ -1,6 +1,9 @@
 language: java
 jdk:
   - openjdk7
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y rpm
 before_script: "git clone -b travis `git config --get remote.origin.url` target/travis"
 script: "mvn deploy --settings target/travis/settings.xml -B -V"
 after_success:
