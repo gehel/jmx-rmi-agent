@@ -52,6 +52,8 @@ You can download this project from Maven repositories :
 * [Releases repository][releases]
 * Or even in [Maven Central][maven-central]
 
+RPM and DEB are also available, directly in the [snapshots][snapshots] or [release][maven-central] repository.
+
 [issues]: https://github.com/gehel/jmx-rmi-agent/issues
 [JMXauth]: http://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth
 [snapshots]: https://oss.sonatype.org/content/repositories/snapshots/
@@ -59,5 +61,3 @@ You can download this project from Maven repositories :
 [releases]: https://oss.sonatype.org/content/repositories/releases/
 [releases-project]: https://oss.sonatype.org/content/repositories/releases/ch/ledcom/agent/jmx/jmx-rmi-agent/
 [maven-central]: http://repo1.maven.org/maven2/ch/ledcom/agent/jmx/jmx-rmi-agent/
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gehel/jmx-rmi-agent/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

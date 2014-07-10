@@ -30,6 +30,10 @@
     <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <java.lib.path>/usr/local/share/java</java.lib.path>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -86,18 +90,15 @@
                 <version>2.1-alpha-4</version>
                 <configuration>
                     <group>Libraries/Java</group>
+                    <release></release>
                     <mappings>
                         <mapping>
-                            <directory>/usr/local/share/java</directory>
-                            <sources>
-                                <source>
-                                    <location>target/${project.build.finalName}.jar</location>
-                                </source>
-                                <softlinkSource>
-                                    <destination>${project.artifactId}.jar</destination>
-                                    <location>${project.build.finalName}.jar</location>
-                                </softlinkSource>
-                            </sources>
+                            <directory>${java.lib.path}</directory>
+                            <artifact>
+                                <classifiers>
+                                    <classifier></classifier>
+                                </classifiers>
+                            </artifact>
                         </mapping>
                     </mappings>
                 </configuration>
@@ -110,13 +111,51 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <snapshotExpand>true</snapshotExpand>
+                            <!-- expand "SNAPSHOT" to what is in the "USER" env variable -->
+                            <!--<snapshotEnv>USER</snapshotEnv>-->
+                            <verbose>true</verbose>
+                            <controlDir>${basedir}/src/deb/control</controlDir>
+                            <dataSet>
+
+                                <data>
+                                    <src>${project.build.directory}/${project.build.finalName}.jar</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>${java.lib.path}</prefix>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <type>link</type>
+                                    <symlink>true</symlink>
+                                    <linkName>${java.lib.path}/${project.artifactId}.jar</linkName>
+                                    <linkTarget>${java.lib.path}/${project.build.finalName}.jar</linkTarget>
+                                </data>
+
+                            </dataSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <name>JMX / RMI Agent</name>
-    <description>Simple agent that can be used to configure JMX access to the
-        JVM.
-    </description>
+    <description>Simple agent that can be used to configure JMX access to the JVM.</description>
     <url>http://gehel.github.com/jmx-rmi-agent/</url>
     <inceptionYear>2012</inceptionYear>
 

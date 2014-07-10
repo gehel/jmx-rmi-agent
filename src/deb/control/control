@@ -1,0 +1,7 @@
+Package: jmx-rmi-agent
+Version: [[version]]
+Section: Java
+Priority: low
+Architecture: all
+Description: [[description]]
+Maintainer: guillaume.lederrey@gmail.com
