@@ -17,4 +17,4 @@ env:
     - secure: "qVA8O3PDGwzH778GhtbkRMEhtHp02eJQlKpv21Hrv82z/IKyJBkBIQxqNxAYv8dVJkw13MbL0e+uXBeAVU2edZ3jvUQy7r7OpVyFlAP1oDuoloW/WQZTtqKzJHx3WuOCe01sijRsReLrBEV2jtV5GXSwq5hBNwZUeI8ThKS5Qnk="
     - secure: "PF4PcIlnZcXPg/HbJGYIUjfOQSyBSNTJdHt4CbFGsUR3v5MDve6s7y7+hlkftvkvvPiLF2Jh3rd7Z0OfSPGpzUlDs68YCKkG6tcnd+fMfZJdv/5JDE4H98O0dZAXw7LuRTrK/wUDz6vfwtQUpf7qIhzG/VvMWf/V6jGOwAjZl/k="
 git:
-  depth: 50
+  depth: 500
