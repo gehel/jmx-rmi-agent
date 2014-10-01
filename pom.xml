@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>ch.ledcom</groupId>
 		<artifactId>ledcom-parent-pom</artifactId>
-		<version>1.36</version>
+		<version>1.38</version>
 	</parent>
 
 	<groupId>ch.ledcom.agent.jmx</groupId>
