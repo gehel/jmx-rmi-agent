@@ -1,6 +1,8 @@
 jmx-rmi-agent
 =============
 
+[![Join the chat at https://gitter.im/gehel/jmx-rmi-agent](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gehel/jmx-rmi-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 jmx-rmi-agent is a simple Java Agent used to configure JMX registry. It is based
 on multiple blog articles and documentation readily found on the web. This agent
 barely deserve to be a project on its own, but I found myself in need of this
